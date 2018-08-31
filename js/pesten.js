@@ -10,7 +10,7 @@ function clicked(tekst) {
 }
 
 function Kaart(kleur, waarde) {
-    /*
+    /**
      * Zet de private variabelen op een startwaarde
      */
     let kaartKleur = null;
@@ -39,41 +39,84 @@ function Kaart(kleur, waarde) {
 	kaartWaarde = waarde;
     }
 
-    /*
+    /**
      * Hier wordt de kaartkleur teruggegeven als waarde
      */
     this.getKaartKleur = function () {
 	return kaartKleur;
     };
-
+    /**
+     * Hier wordt de kaartkleur bij naam teruggegeven
+     */
     this.getKaartKleurBijNaam = function () {
 	return kaartKleurNaam[kaartKleur];
     };
 
-    /*
+    /**
      * Hier wordt de kaartwaarde teruggegeven als waarde
      */
     this.getKaartWaarde = function () {
 	return kaartWaarde;
     };
-
+    /** 
+     * Hier wordt de kaartwaarde bij naam teruggegeven
+     */
     this.getKaartWaardeBijNaam = function () {
 	return kaartWaardeNaam[kaartWaarde];
     };
 }
 
 function Speler(naam) {
+    /**
+     * Zet de private variabelen op een startwaarde
+     */
     let spelerNaam = naam;
 
     this.getSpelerNaam = function () {
 	return spelerNaam;
     };
 }
-;
+
+
+function Spelers() {
+    /**
+     * Zet de private variabelen op een startwaarde
+     */
+    let spelers = [];
+
+    /**
+     * Hier wordt het aantal spelers gertourneerd
+     */
+    this.getAantalSpelers = function () {
+	return spelers.length;
+    };
+
+    /**
+     * Hier kunnen de spelers toegevoegd worden
+     * Het aantal spelers is maximaal 4
+     * 
+     */
+    this.voegSpelerToe = function (naam) {
+	if (spelers.length > 3) {
+	    throw new Error("Niet meer dan vier spelers toegestaan.");
+	} else {
+	    spelers.push(new Speler(naam));
+	}
+    };
+}
+
+
 
 function Stok() {
+    /**
+     * Zet de private variabelen op een startwaarde
+     */
     let stok = [];
 
+    /**
+     * Hier wordt een stok kaarten gemaakt met alle kleuren en waarden,
+     * zonder jokers.
+     */
     this.creeerStok = function () {
 	for (kleur = 0; kleur < 4; kleur++) {
 	    for (waarde = 1; waarde < 14; waarde++) {
@@ -90,6 +133,9 @@ function Stok() {
 	return stok.length;
     };
 
+    /**
+     * Met deze methode worden de kaarten geschud.
+     */
     this.schudKaarten = function () {
 	stok.sort(function (a, b) {
 	    return 0.5 - Math.random();
@@ -102,6 +148,11 @@ function init() {
     let stok = new Stok();
     stok.creeerStok();
     stok.schudKaarten();
+    spelers = new Spelers();
+    spelers.voegSpelerToe("Rob");
+    spelers.voegSpelerToe("Jan");
+    spelers.voegSpelerToe("Piet-Joris");
+    spelers.voegSpelerToe("Corneel");
 //    let inhoud = "";
 //    for (i = 0; i < stok.getStokGrootte(); i++) {
 //	inhoud += stok.getKaart(i).getKaartKleurBijNaam() + "&nbsp;" + stok.getKaart(i).getKaartWaardeBijNaam() + "<br />\n";
