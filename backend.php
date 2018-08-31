@@ -17,7 +17,7 @@
 		<div class="eight columns">&nbsp;</div>
 	    </div>
 	    <div class="row">
-	    <div class="three columns">
+	    <div class="eight columns">
 		<?php
 		/*
 		 * Laat het bestand zien als het bestaat
@@ -33,7 +33,7 @@
 		echo $antwoord;
 		?>
 	    </div>
-	    <div class="eight columns">&nbsp;</div>
+	    <div class="three columns">&nbsp;</div>
 	    </div>
 	</div>
     </body>

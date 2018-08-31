@@ -5,7 +5,7 @@
  * logbestand.
  */
 $antwoord = "Niets";
-$tekst = filter_input(INPUT_GET, "iTekst", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$tekst = filter_input(INPUT_GET, "iTekst", FILTER_SANITIZE_MAGIC_QUOTES);
 
 if ($tekst !== "") {
     $antwoord = date("H:i:s") .  "&nbsp;"  . $tekst."</br>\n";
