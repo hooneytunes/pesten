@@ -1,8 +1,8 @@
-function clicked(tekst) {
+function addLog(tekst) {
     let AjaxTP = new XMLHttpRequest();
     AjaxTP.onreadystatechange = function () {
 	if (this.readyState === 4 && this.status === 200) {
-	    document.getElementById('output').innerHTML = this.responseText;
+//	    document.getElementById('output').innerHTML = this.responseText;
 	}
     };
     AjaxTP.open("GET", "loggen.php?iTekst=" + tekst, true);
@@ -85,10 +85,14 @@ function Spelers() {
     let spelers = [];
 
     /**
-     * Hier wordt het aantal spelers gertourneerd
+     * Hier wordt het aantal spelers geretourneerd
      */
     this.getAantalSpelers = function () {
 	return spelers.length;
+    };
+
+    this.getNaamSpeler = function (id) {
+	return spelers[id].getSpelerNaam();
     };
 
     /**
@@ -144,6 +148,13 @@ function Stok() {
     };
 }
 
+function bouwScherm(spelers) {
+    for (i = 0; i < spelers.getAantalSpelers(); i++) {
+	document.getElementById("player" + i + "_name").innerHTML = spelers.getNaamSpeler(i);
+    }
+
+}
+
 function init() {
     let stok = new Stok();
     stok.creeerStok();
@@ -153,13 +164,12 @@ function init() {
     spelers.voegSpelerToe("Jan");
     spelers.voegSpelerToe("Piet-Joris");
     spelers.voegSpelerToe("Corneel");
-//    let inhoud = "";
-//    for (i = 0; i < stok.getStokGrootte(); i++) {
-//	inhoud += stok.getKaart(i).getKaartKleurBijNaam() + "&nbsp;" + stok.getKaart(i).getKaartWaardeBijNaam() + "<br />\n";
-//    }
-//
-//    document.getElementById("speelveld").innerHTML = inhoud;
-
-
-
+    bouwScherm(spelers);
+    let logBericht = "Een spel is begonnen met ";
+    for (i = 0; i < spelers.getAantalSpelers() - 2; i++) {
+	logBericht += spelers.getNaamSpeler(i) + ", ";
+    }
+    logBericht += spelers.getNaamSpeler(spelers.getAantalSpelers() - 2) + " en ";
+    logBericht += spelers.getNaamSpeler(spelers.getAantalSpelers() - 1) + ".";
+    addLog(logBericht);
 }
