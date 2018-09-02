@@ -71,9 +71,22 @@ function Speler(naam) {
      * Zet de private variabelen op een startwaarde
      */
     let spelerNaam = naam;
+    let spelerKaarten = [];
 
     this.getSpelerNaam = function () {
 	return spelerNaam;
+    };
+
+    this.getSpelerAantalKaarten = function () {
+	return spelerKaarten.length;
+    };
+
+    this.geefSpelerEenKaart = function (kaart) {
+	spelerKaarten.push(kaart);
+    };
+
+    this.toonKaart = function (id) {
+	return spelerKaarten[id];
     };
 }
 
@@ -84,6 +97,10 @@ function Spelers() {
      */
     let spelers = [];
 
+    this.geefSpelerEenKaart = function (id, kaart) {
+	spelers[id].geefSpelerEenKaart(kaart);
+    };
+
     /**
      * Hier wordt het aantal spelers geretourneerd
      */
@@ -93,6 +110,14 @@ function Spelers() {
 
     this.getNaamSpeler = function (id) {
 	return spelers[id].getSpelerNaam();
+    };
+
+    this.getSpelerAantalKaarten = function (id) {
+	return spelers[id].getSpelerAantalKaarten();
+    };
+
+    this.toonKaartVanSpeler = function (id, kaartNummer) {
+	return spelers[id].toonKaart(kaartNummer);
     };
 
     /**
@@ -108,8 +133,6 @@ function Spelers() {
 	}
     };
 }
-
-
 
 function Stok() {
     /**
@@ -137,6 +160,12 @@ function Stok() {
 	return stok.length;
     };
 
+    this.neemEenKaart = function () {
+//	return stok.splice(0, 1);
+	kaart = stok.splice(0, 1);
+	return kaart[0];
+    };
+
     /**
      * Met deze methode worden de kaarten geschud.
      */
@@ -151,25 +180,54 @@ function Stok() {
 function bouwScherm(spelers) {
     for (i = 0; i < spelers.getAantalSpelers(); i++) {
 	document.getElementById("player" + i + "_name").innerHTML = spelers.getNaamSpeler(i);
+
+
+	for (j = 0; j < spelers.getSpelerAantalKaarten(i); j++) {
+	    dezeKaart = spelers.toonKaartVanSpeler(i, j);
+	    document.getElementById("player" + i + "_kaart" + j).innerHTML = dezeKaart.getKaartKleurBijNaam() + "&nbsp;" + dezeKaart.getKaartWaardeBijNaam();
+	}
     }
 
 }
 
 function init() {
+    /**
+     * Maak een stok kaarten en schud de kaarten
+     */
     let stok = new Stok();
     stok.creeerStok();
     stok.schudKaarten();
+
+    /**
+     * Creeer de spelers van dit spel
+     */
     spelers = new Spelers();
     spelers.voegSpelerToe("Rob");
     spelers.voegSpelerToe("Jan");
     spelers.voegSpelerToe("Piet-Joris");
     spelers.voegSpelerToe("Corneel");
-    bouwScherm(spelers);
+
     let logBericht = "Een spel is begonnen met ";
     for (i = 0; i < spelers.getAantalSpelers() - 2; i++) {
 	logBericht += spelers.getNaamSpeler(i) + ", ";
     }
     logBericht += spelers.getNaamSpeler(spelers.getAantalSpelers() - 2) + " en ";
     logBericht += spelers.getNaamSpeler(spelers.getAantalSpelers() - 1) + ".";
-    addLog(logBericht);
+    /**
+     *	In de productieomgeving moet dit commentaar verwijderd worden
+     *    addLog(logBericht);
+     */
+
+    /**
+     * Geef elke speler zeven kaarten
+     */
+    for (i = 0; i < spelers.getAantalSpelers(); i++) {
+	for (j = 0; j < 7; j++) {
+	    spelers.geefSpelerEenKaart(i, stok.neemEenKaart());
+	}
+    }
+
+    bouwScherm(spelers);
+
 }
+    
