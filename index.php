@@ -2,6 +2,20 @@
 <!--
     Dit is de homepage voor het spel Pesten
 -->
+<?php
+
+function createTable($ID) {
+    $spelerID = $ID;
+    for ($regels = 0; $regels < 4; $regels++) {
+	echo "\n\t\t\t\t<tr>\n";
+	for ($cellen = 0; $cellen < 5; $cellen++) {
+	    $kaartID = $regels * 5 + $cellen;
+	    echo "\t\t\t\t\t<td id=\"player" . $spelerID . '_kaart' . $kaartID . '">&nbsp;</td>' . "\n";
+	}
+	echo "\t\t\t\t</tr>\n";
+    }
+}
+?>
 <html>
     <head>
 	<title>Pesten</title>
@@ -19,17 +33,17 @@
 		<div class="one-half column">
 		    <table>
 			<caption id="player0_name">Rob</caption>
-			<tr><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td></tr>
-			<tr><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td></tr>
-			<tr><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td></tr>
+			<?php
+			createTable(0);
+			?>
 		    </table>
 		</div>
 		<div class="one-half column">
 		    <table>
 			<caption id="player1_name">Rob</caption>
-			<tr><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td></tr>
-			<tr><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td></tr>
-			<tr><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td></tr>
+			<?php
+			createTable(1);
+			?>
 		    </table>
 		</div>
 	    </div>
@@ -45,17 +59,17 @@
 		<div class="one-half column">
 		    <table>
 			<caption id="player2_name">Rob</caption>
-			<tr><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td></tr>
-			<tr><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td></tr>
-			<tr><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td></tr>
+			<?php
+			createTable(2);
+			?>
 		    </table>
 		</div>
 		<div class="one-half column">
 		    <table>
 			<caption id="player3_name">Rob</caption>
-			<tr><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td></tr>
-			<tr><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td></tr>
-			<tr><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td><td>Klaveren Heer</td></tr>
+			<?php
+			createTable(3);
+			?>
 		    </table>
 		</div>
 	    </div>
