@@ -9,6 +9,11 @@ function addLog(tekst) {
     AjaxTP.send();
 }
 
+let huidigeStok = null;
+let huidigeSpelers = null;
+let huidigeKaart = null;
+let spelerAanDeBeurt = 0;
+
 function Kaart(kleur, waarde) {
     /**
      * Zet de private variabelen op een startwaarde
@@ -88,8 +93,11 @@ function Speler(naam) {
     this.toonKaart = function (id) {
 	return spelerKaarten[id];
     };
-}
 
+    this.verwijderKaart = function (id) {
+	spelerKaarten.splice(id, 1);
+    };
+}
 
 function Spelers() {
     /**
@@ -118,6 +126,10 @@ function Spelers() {
 
     this.toonKaartVanSpeler = function (id, kaartNummer) {
 	return spelers[id].toonKaart(kaartNummer);
+    };
+
+    this.verwijderKaartVanSpeler = function (spelerID, kaartID) {
+	spelers[spelerID].verwijderKaart(kaartID);
     };
 
     /**
@@ -161,7 +173,6 @@ function Stok() {
     };
 
     this.neemEenKaart = function () {
-//	return stok.splice(0, 1);
 	kaart = stok.splice(0, 1);
 	return kaart[0];
     };
@@ -180,12 +191,67 @@ function Stok() {
 function bouwScherm(spelers) {
     for (i = 0; i < spelers.getAantalSpelers(); i++) {
 	document.getElementById("player" + i + "_name").innerHTML = spelers.getNaamSpeler(i);
-
-
 	for (j = 0; j < spelers.getSpelerAantalKaarten(i); j++) {
 	    dezeKaart = spelers.toonKaartVanSpeler(i, j);
 	    document.getElementById("player" + i + "_kaart" + j).innerHTML = dezeKaart.getKaartKleurBijNaam() + "&nbsp;" + dezeKaart.getKaartWaardeBijNaam();
 	}
+	for (j = spelers.getSpelerAantalKaarten(i); j < 20; j++) {
+	    document.getElementById("player" + i + "_kaart" + j).innerHTML = "&nbsp;";
+	}
+    }
+    document.getElementById("huidigeKaart").innerHTML = huidigeKaart.getKaartKleurBijNaam() + "&nbsp;" + huidigeKaart.getKaartWaardeBijNaam();
+    document.getElementById("log").innerHTML = spelers.getNaamSpeler(spelerAanDeBeurt) + " is aan de beurt.";
+}
+
+function volgendeSpeler() {
+    spelerAanDeBeurt++;
+    if (spelerAanDeBeurt > huidigeSpelers.getAantalSpelers() - 1) {
+	spelerAanDeBeurt = 0;
+    }
+}
+
+function klikKaart(spelerID, kaartID) {
+    /**
+     * Eerst kijken we of de kaart waarop geklikt is 
+     * wel van de speler is die aan de beurt is
+     */
+
+    if (spelerID === spelerAanDeBeurt) {
+	try {
+	    gekozenKaart = huidigeSpelers.toonKaartVanSpeler(spelerID, kaartID);
+	    /**
+	     * Als dat het geval is wordt bekeken of de gekozen kaart past bij de huidige kaart
+	     * Zo niet, dan blijft de beurt bij de speler
+	     */
+	    if (gekozenKaart.getKaartKleur() === huidigeKaart.getKaartKleur() || gekozenKaart.getKaartWaarde() === huidigeKaart.getKaartWaarde()) {
+		huidigeSpelers.verwijderKaartVanSpeler(spelerID, kaartID);
+		huidigeKaart = gekozenKaart;
+		if (huidigeSpelers.getSpelerAantalKaarten(spelerID) === 0) {
+		    let tekst = huidigeSpelers.getNaamSpeler(spelerID) + " heeft gewonnen!";
+		    alert(tekst);
+		    location.reload(true);
+		}
+		volgendeSpeler();
+		bouwScherm(huidigeSpelers);
+	    }
+	} catch (e) {
+	    /**
+	     * Bad practice, maar we doen verder niets de melding dat de speler op een leeg vakje heeft geklikt.
+	     * 
+	     */
+	}
+    }
+}
+
+function trekEenKaart() {
+    if (huidigeStok.getStokGrootte() !== 0) {
+	huidigeSpelers.geefSpelerEenKaart(spelerAanDeBeurt, huidigeStok.neemEenKaart());
+	volgendeSpeler();
+	bouwScherm(huidigeSpelers);
+    } else {
+	let tekst = "Alle kaarten zijn op.\n Niemand heeft gewonnen!";
+	alert(tekst);
+	location.reload(true);
     }
 
 }
@@ -194,9 +260,9 @@ function init() {
     /**
      * Maak een stok kaarten en schud de kaarten
      */
-    let stok = new Stok();
-    stok.creeerStok();
-    stok.schudKaarten();
+    huidigeStok = new Stok();
+    huidigeStok.creeerStok();
+    huidigeStok.schudKaarten();
 
     /**
      * Creeer de spelers van dit spel
@@ -206,7 +272,7 @@ function init() {
     spelers.voegSpelerToe("Jan");
     spelers.voegSpelerToe("Piet-Joris");
     spelers.voegSpelerToe("Corneel");
-
+    huidigeSpelers = spelers;
     let logBericht = "Een spel is begonnen met ";
     for (i = 0; i < spelers.getAantalSpelers() - 2; i++) {
 	logBericht += spelers.getNaamSpeler(i) + ", ";
@@ -223,11 +289,12 @@ function init() {
      */
     for (i = 0; i < spelers.getAantalSpelers(); i++) {
 	for (j = 0; j < 7; j++) {
-	    spelers.geefSpelerEenKaart(i, stok.neemEenKaart());
+	    spelers.geefSpelerEenKaart(i, huidigeStok.neemEenKaart());
 	}
     }
 
+    huidigeKaart = huidigeStok.neemEenKaart();
+    spelerAanDeBeurt = Math.round(Math.random() * 3);
     bouwScherm(spelers);
 
 }
-    

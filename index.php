@@ -10,7 +10,7 @@ function createTable($ID) {
 	echo "\n\t\t\t\t<tr>\n";
 	for ($cellen = 0; $cellen < 5; $cellen++) {
 	    $kaartID = $regels * 5 + $cellen;
-	    echo "\t\t\t\t\t<td id=\"player" . $spelerID . '_kaart' . $kaartID . '">&nbsp;</td>' . "\n";
+	    echo "\t\t\t\t\t<td id=\"player" . $spelerID . '_kaart' . $kaartID . '" onClick="klikKaart('.$spelerID.','.$kaartID.')">&nbsp;</td>' . "\n";
 	}
 	echo "\t\t\t\t</tr>\n";
     }
@@ -48,11 +48,11 @@ function createTable($ID) {
 		</div>
 	    </div>
 	    <div class="row">
-		<div class="one-half column">
+		<div class="one-half column" id="huidigeKaart">
 		    Kaart
 		</div>
 		<div class="one-half column">
-		    Trek een kaart
+		    <button class="button-primary" onclick="trekEenKaart()">Trek een kaart</button>
 		</div>
 	    </div>
 	    <div class="row">
@@ -73,6 +73,12 @@ function createTable($ID) {
 		    </table>
 		</div>
 	    </div>
+	    <div class="row">
+		<div id="log">
+		    
+		</div>
+	    </div>
+	    
 	</div>
 
 	<script src="js/pesten.js"></script> 
