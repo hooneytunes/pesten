@@ -2,7 +2,7 @@ function addLog(tekst) {
     let AjaxTP = new XMLHttpRequest();
     AjaxTP.onreadystatechange = function () {
 	if (this.readyState === 4 && this.status === 200) {
-//	    document.getElementById('output').innerHTML = this.responseText;
+//TODO: logging op het scherm
 	}
     };
     AjaxTP.open("GET", "loggen.php?iTekst=" + tekst, true);
