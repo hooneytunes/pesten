@@ -230,8 +230,12 @@ function klikKaart(spelerID, kaartID) {
 	    if (gekozenKaart.getKaartKleur() === huidigeKaart.getKaartKleur() || gekozenKaart.getKaartWaarde() === huidigeKaart.getKaartWaarde()) {
 		huidigeSpelers.verwijderKaartVanSpeler(spelerID, kaartID);
 		huidigeKaart = gekozenKaart;
+		logBericht = huidigeSpelers.getNaamSpeler(spelerAanDeBeurt) + ' speelt ' + gekozenKaart.getKaartBijVolleNaam();
+		addLog(logBericht);
+
 		if (huidigeSpelers.getSpelerAantalKaarten(spelerID) === 0) {
 		    let tekst = huidigeSpelers.getNaamSpeler(spelerID) + " heeft gewonnen!";
+		    addLog(tekst);
 		    alert(tekst);
 		    location.reload(true);
 		}
@@ -249,7 +253,10 @@ function klikKaart(spelerID, kaartID) {
 
 function trekEenKaart() {
     if (huidigeStok.getStokGrootte() !== 0) {
-	huidigeSpelers.geefSpelerEenKaart(spelerAanDeBeurt, huidigeStok.neemEenKaart());
+	getrokkenKaart = huidigeStok.neemEenKaart();
+	huidigeSpelers.geefSpelerEenKaart(spelerAanDeBeurt, getrokkenKaart);
+	logBericht = huidigeSpelers.getNaamSpeler(spelerAanDeBeurt) + ' trekt ' + getrokkenKaart.getKaartBijVolleNaam();
+	addLog(logBericht);
 	volgendeSpeler();
 	bouwScherm(huidigeSpelers);
     } else {
@@ -292,13 +299,15 @@ function init() {
 	for (j = 0; j < 7; j++) {
 	    let nieuweKaart = huidigeStok.neemEenKaart();
 	    huidigeSpelers.geefSpelerEenKaart(i, nieuweKaart);
-	    logBericht = huidigeSpelers.getNaamSpeler(i) + " kreeg " + nieuweKaart.getKaartBijVolleNaam();
+	    logBericht = huidigeSpelers.getNaamSpeler(i) + " krijgt " + nieuweKaart.getKaartBijVolleNaam();
 	    addLog(logBericht);
 	}
     }
 
     huidigeKaart = huidigeStok.neemEenKaart();
     spelerAanDeBeurt = Math.round(Math.random() * 3);
+    logBericht = huidigeSpelers.getNaamSpeler(spelerAanDeBeurt) + ' mag beginnen';
+    addLog(logBericht);
     bouwScherm();
 
 }
