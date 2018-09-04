@@ -1,10 +1,5 @@
 function addLog(tekst) {
     let AjaxTP = new XMLHttpRequest();
-    AjaxTP.onreadystatechange = function () {
-	if (this.readyState === 4 && this.status === 200) {
-//TODO: logging op het scherm
-	}
-    };
     AjaxTP.open("GET", "loggen.php?iTekst=" + tekst + "&iTijd=" + Date.now(), true);
     AjaxTP.send();
 }
