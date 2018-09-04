@@ -80,7 +80,7 @@ function createTable($ID) {
 	    </div>
 	    
 	</div>
-
+	<script src="js/org/cards/cards.js"></script>
 	<script src="js/pesten.js"></script> 
     </body>
 </html>
