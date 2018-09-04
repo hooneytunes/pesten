@@ -5,7 +5,7 @@ function addLog(tekst) {
 //TODO: logging op het scherm
 	}
     };
-    AjaxTP.open("GET", "loggen.php?iTekst=" + tekst, true);
+    AjaxTP.open("GET", "loggen.php?iTekst=" + tekst + "&iTijd=" + Date.now(), true);
     AjaxTP.send();
 }
 
