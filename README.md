@@ -4,8 +4,11 @@ Pesten is een spel gemaakt in opdracht van RIFF (https://jaagers.com/) om de pro
 
 # Installatieinstructie:
 – Download het zip-bestand (waar ook dit bestand in zit) en unzip het.
+
 – Plaats alle bestanden op de webserver (er is geen interactie met een database). Dit mag in de rootdirectory, maar ook in een subdirectory werkt het.
+
 – Start het spel in je browser door naar de URL te gaan waar je de bestanden hebt geplaatst.
+
 – Door op “Bekijk het log” te klikken, wordt het logbestand in een apart venster geopend.
 
 # Kanttekeningen bij deze V1.0:
