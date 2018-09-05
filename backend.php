@@ -25,7 +25,7 @@
 		     */
 		    $filename = dirname(__FILE__) . "/log.txt";
 		    if (file_exists($filename)) {
-			$log = file($filename);
+			$log = file($filename,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 			$sort = sort($log);
 			for ($i = 0; $i < count($log); $i++) {
 			    $regel = explode("@", $log[$i]);
