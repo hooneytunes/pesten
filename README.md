@@ -13,6 +13,7 @@ Pesten is een spel gemaakt in opdracht van RIFF (https://jaagers.com/) om de pro
 
 # Kanttekeningen bij deze V1.0:
 – De UX van dit spel is afschuwelijk. Door de limitatie in tijd die mij was opgelegd, kon ik geen mooiere GUI maken.
+
 – Vooral als het spel nieuw is geïnstalleerd, zal de opbouw van de GUI even duren (weliswaar minder dan een seconde op mijn oude laptop), maar het is wel merkbaar. (TODO: buffer voor de AJAX transactie inbouwen)
 
 # Ondanks alle tekortkomingen wens ik je veel speelplezier toe!
