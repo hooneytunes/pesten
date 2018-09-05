@@ -1,7 +1,7 @@
 function addLog(tekst) {
     let AjaxTP = new XMLHttpRequest();
     uTekst = encodeURI("loggen.php?iTekst=" + tekst + "&iTijd=" + Date.now());
-    AjaxTP.open("GET", uTekst, true);
+    AjaxTP.open("GET", uTekst, false);
     AjaxTP.send();
 }
 

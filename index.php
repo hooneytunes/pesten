@@ -10,7 +10,7 @@ function createTable($ID) {
 	echo "\n\t\t\t\t<tr>\n";
 	for ($cellen = 0; $cellen < 5; $cellen++) {
 	    $kaartID = $regels * 5 + $cellen;
-	    echo "\t\t\t\t\t<td id=\"player" . $spelerID . '_kaart' . $kaartID . '" onClick="klikKaart('.$spelerID.','.$kaartID.')">&nbsp;</td>' . "\n";
+	    echo "\t\t\t\t\t<td id=\"player" . $spelerID . '_kaart' . $kaartID . '" onClick="klikKaart(' . $spelerID . ',' . $kaartID . ')">&nbsp;</td>' . "\n";
 	}
 	echo "\t\t\t\t</tr>\n";
     }
@@ -27,7 +27,12 @@ function createTable($ID) {
     <body onload="init();">
 	<div class="container">
 	    <div class="row">
-		<h3>Pesten</h3>
+		<div class="one-half column">
+		    <h3>Pesten</h3>
+		</div>
+		<div class="one-half column">
+		    <h3><a href="backend.php" target="_blank">Bekijk het log</a></h3>
+		</div>
 	    </div>
 	    <div class="row">
 		<div class="one-half column">
@@ -75,10 +80,10 @@ function createTable($ID) {
 	    </div>
 	    <div class="row">
 		<div id="log">
-		    
+
 		</div>
 	    </div>
-	    
+
 	</div>
 	<script src="js/org/cards/cards.js"></script>
 	<script src="js/pesten.js"></script> 
