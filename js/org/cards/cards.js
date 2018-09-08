@@ -4,7 +4,7 @@ function Kaart(kleur, waarde) {
      */
     let kaartKleur = null;
     let kaartWaarde = null;
-    let kaartKleurNaam = ["Harten", "Klaveren", "Ruiten", "Schoppen"];
+    let kaartKleurNaam = ["Klaveren", "Schoppen", "Harten", "Ruiten"];
     let kaartWaardeNaam = ["Joker", "Aas", 2, 3, 4, 5, 6, 7, 8, 9, 10, "Boer", "Vrouw", "Heer"];
     /*
      * De kleur moet 0, 1, 2 of 3 zijn,
@@ -56,6 +56,14 @@ function Kaart(kleur, waarde) {
 
     this.getKaartBijVolleNaam = function () {
 	return this.getKaartKleurBijNaam() + " " + this.getKaartWaardeBijNaam();
+    };
+
+    this.getKaartAfbeelding = function () {
+	let afbeelding = kaartKleur * 13 + kaartWaarde;
+	if (afbeelding <10) {
+	    afbeelding = "0" + afbeelding;
+	}
+	return afbeelding;
     };
 }
 
