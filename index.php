@@ -2,20 +2,6 @@
 <!--
     Dit is de homepage voor het spel Pesten
 -->
-<?php
-
-function createTable($ID) {
-    $spelerID = $ID;
-    for ($regels = 0; $regels < 4; $regels++) {
-	echo "\n\t\t\t\t<tr>\n";
-	for ($cellen = 0; $cellen < 5; $cellen++) {
-	    $kaartID = $regels * 5 + $cellen;
-	    echo "\t\t\t\t\t<td id=\"player" . $spelerID . '_kaart' . $kaartID . '" onClick="klikKaart(' . $spelerID . ',' . $kaartID . ')">&nbsp;</td>' . "\n";
-	}
-	echo "\t\t\t\t</tr>\n";
-    }
-}
-?>
 <html>
     <head>
 	<title>Pesten</title>
@@ -36,25 +22,17 @@ function createTable($ID) {
 	    </div>
 	    <div class="row">
 		<div class="one-half column">
-		    <table>
-			<caption id="player0_name">Rob</caption>
-			<?php
-			createTable(0);
-			?>
-		    </table>
+		    <div id="player0_name"></div>
+		    <div id="cards_player0"></div>
 		</div>
 		<div class="one-half column">
-		    <table>
-			<caption id="player1_name">Rob</caption>
-			<?php
-			createTable(1);
-			?>
-		    </table>
+		    <div id="player1_name"></div>
+		    <div id="cards_player1"></div>
 		</div>
 	    </div>
 	    <div class="row">
-		<div class="one-half column" id="huidigeKaart">
-		    Kaart
+		<div class="one-half column">
+		    <img src="images/cards/back.png" class="kaart" id="huidigeKaart">
 		</div>
 		<div class="one-half column">
 		    <button class="button-primary" onclick="trekEenKaart()">Trek een kaart</button>
@@ -62,26 +40,16 @@ function createTable($ID) {
 	    </div>
 	    <div class="row">
 		<div class="one-half column">
-		    <table>
-			<caption id="player2_name">Rob</caption>
-			<?php
-			createTable(2);
-			?>
-		    </table>
+		    <div id="player2_name"></div>
+		    <div id="cards_player2"></div>
 		</div>
 		<div class="one-half column">
-		    <table>
-			<caption id="player3_name">Rob</caption>
-			<?php
-			createTable(3);
-			?>
-		    </table>
+		    <div id="player3_name"></div>
+		    <div id="cards_player3"></div>
 		</div>
 	    </div>
 	    <div class="row">
-		<div id="log">
-
-		</div>
+		<div id="log"></div>
 	    </div>
 
 	</div>
