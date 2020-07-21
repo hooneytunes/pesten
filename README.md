@@ -1,6 +1,6 @@
 # Pesten
 
-Pesten is een spel gemaakt in opdracht van RIFF (https://jaagers.com/) om de programmeerstijl van ondergetekende te testen.
+Pesten is een spel gemaakt in opdracht van een potentiele werkgever om de programmeerstijl van ondergetekende te testen.
 
 # Installatieinstructie:
 – Download het zip-bestand (waar ook dit bestand in zit) en unzip het.
